@@ -3,7 +3,7 @@ const { parseString } = require('xml2js');
 const NodeRSA = require('node-rsa');
 
 // Read the XML-formatted RSA public key
-const xmlPublicKey = fs.readFileSync('./public.pem', 'utf-8');
+const xmlPublicKey = fs.readFileSync('./keys/public.pem', 'utf-8');
 
 // Parse the XML to extract Modulus and Exponent
 parseString(xmlPublicKey, (err, result) => {
