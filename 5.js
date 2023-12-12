@@ -27,3 +27,27 @@ parseString(xmlPublicKey, (err, result) => {
 
   console.log('Conversion completed successfully.');
 });
+
+// Lee el archivo PEM
+const pemFilePath = './keys/public.pem';
+const pemContent = fs.readFileSync(pemFilePath, 'utf-8');
+
+// Imprime el contenido como una cadena
+console.log(pemContent);
+
+`
+-----BEGIN PUBLIC KEY-----
+MIICIjANBgkqhkiG9w0BAQEFAAOCAg8AMIICCgKCAgEArNPDqb1pIvOER9dUoxRo
+r1JzNFQWn6Bh4YvU6EKwI1sN2AX8nmRefb+Gv0JA+er64dfdrEqZtTwph3ec60QZ
+/s+/ctCWfsANmIR3x/K2bYRmQdMKa1cjfjOZm7iPQMtP7DRACks76Y+s5Emdtkfg
+tcTgCKHiR3yrw6UlIu3uTY7G5MkTBWxjmF32uhIqsbTmpTGjzl9wZE7cbDN5SV2S
+mZr7JqkMcVGDJHIeX4zYhUMmQaKOEfEy5eKP7WD1+/TBwIn5K+kaYXfVeRn8+Nv4
+42VB5hCgXsflcJF7mjIqdA78K1cj9D80NuKI/0YiRuROfEl+mU/Q+Dk0oQci1FYS
+yvq/aP7T+eo4GX4HcWaVo+jBTZEDku7MuUugDm/hog9NadDPUn/JvCi98Ztxq9by
+SvAaUpzm5yZ7UohPdbxRaTR53NZ9pUik71crL7WiAYG2HtmXoaNavH7SWj6IH0LZ
+dVownBzqBQ8QQgrD/OFJaCCW0Ic/XvjTZ5IZ98tvIC5NQPB9UyGxbDho0xz2cIv2
+mn1MoMIIbGzsOjjwErwxkHtpfC7mWAPKJs5P18QYJEZ3HY0eHLU8k7x7k6ll0yNS
+s6iLlEIaaBqJ7782sfj6yxoA5D/jNBHoL/PFzulOA135/81FKYFLRiHxcpRMN0oQ
+RKe8PFlS+vp6mHzyEea3FoECAwEAAQ==
+-----END PUBLIC KEY-----
+`;

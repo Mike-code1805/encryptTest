@@ -43,20 +43,10 @@ const password = 'mi_contraseña';
 
 function decrypt(textToDecrypt) {
   try {
-    console.time('decrypt');
     console.log('IM IN DENCRYPT');
-    // Hasheamos la contraseña
-    console.time('Hasheamos la contraseña');
-    const hashedPassword = CryptoJS.SHA256(password).toString(CryptoJS.enc.Hex);
-    console.timeEnd('Hasheamos la contraseña');
-    // Desencriptamos con el hash y obtenemos el privateKey
-    console.time('Desencriptamos con el hash y obtenemos el privateKey');
-    const bytes = CryptoJS.AES.decrypt(textToDecrypt.privateKey, hashedPassword, { mode: CryptoJS.mode.ECB });
-    const decryptedData = bytes.toString(CryptoJS.enc.Utf8);
-    console.timeEnd('Desencriptamos con el hash y obtenemos el privateKey');
-    // const privateKeyPem = fs.readFileSync('./keys/private.pem', 'utf8');
-    // Desencriptamos el texto con la llave privada
+    console.time('decrypt');
     console.time('Desencriptamos el texto con la llave privada');
+
     const key = new NodeRSA(decryptedData);
     const textoDesencriptado = key.decrypt(textToDecrypt.textToEncrypt, 'utf8');
     console.timeEnd('Desencriptamos el texto con la llave privada');
@@ -68,64 +58,31 @@ function decrypt(textToDecrypt) {
 }
 function encrypt(textToEncrypt) {
   try {
-    console.time('encrypt');
     console.log('IM IN ENCRYPT');
+    console.time('encrypt');
     //Generamos nuevas claves públicas y privadas
+
     console.time('Generamos nuevas claves públicas y privadas');
     const keyPair = new NodeRSA().generateKeyPair();
     const publicKey = keyPair.exportKey('public');
     const privateKey = keyPair.exportKey('private');
     console.timeEnd('Generamos nuevas claves públicas y privadas');
 
-    // Hasheamos la contraseña
-    console.time('Hasheamos la contraseña');
-    const hashedPassword = CryptoJS.SHA256(password).toString(CryptoJS.enc.Hex);
-    console.timeEnd('Hasheamos la contraseña');
-    // const keyPairPem = fs.readFileSync(JSON.stringify(publicKey), 'utf8');
-    // const publicKeyPem = fs.readFileSync('./keys/public.pem', 'utf8');
-    // const privateKeyPem = fs.readFileSync('./keys/private.pem', 'utf8');
-    // const stringify = { textToEncrypt, privateKey };
-
-    // Encriptamos el privateKey con el hash
-    console.time('Encriptamos el privateKey con el hash');
-    const keyPrivadoEncriptado = CryptoJS.AES.encrypt(privateKey, hashedPassword, { mode: CryptoJS.mode.ECB }).toString();
-    console.timeEnd('Encriptamos el privateKey con el hash');
-    // Encriptamos el texto con la llave pública
+    // Encriptamos el texto y la llave privada con la llave pública
+    console.time('Encriptamos el texto y la llave privada con la llave pública');
     const key = new NodeRSA(publicKey);
-    const textoEncriptado = key.encrypt(textToEncrypt, 'base64');
-
-    console.log('Texto encriptado:', { privateKey: keyPrivadoEncriptado, textToEncrypt: textoEncriptado });
+    const textoEncriptado = key.encrypt(JSON.stringify({ textToEncrypt, privateKey }), 'base64');
+    console.timeEnd('Encriptamos el texto y la llave privada con la llave pública');
 
     console.timeEnd('encrypt');
 
+    console.log('Texto encriptado:', { textoEncriptado });
+
     // Llamamos a la desencriptación inmediata
-    decrypt({ privateKey: keyPrivadoEncriptado, textToEncrypt: textoEncriptado });
+    decrypt({ textoEncriptado });
   } catch (error) {
     console.log(error);
   }
 }
 
 encrypt('Este texto lo voy a encriptar ahora');
-
-const crypto = require('crypto');
-
-function generateKeyPair() {
-  const { publicKey, privateKey } = crypto.generateKeyPairSync('rsa', {
-    modulusLength: 2048,
-    publicKeyEncoding: {
-      type: 'spki',
-      format: 'pem',
-    },
-    privateKeyEncoding: {
-      type: 'pkcs8',
-      format: 'pem',
-    },
-  });
-
-  return { publicKey, privateKey };
-}
-
-// Ejemplo de uso
-const { publicKey, privateKey } = generateKeyPair();
-// console.log('Public Key:\n', publicKey);
-// console.log('\nPrivate Key:\n', privateKey);
