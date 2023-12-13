@@ -1,5 +1,6 @@
-function obtenerLetraUnica() {
   const alfabeto = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
+  function obtenerLetraUnica() {
+  const alfabeto = 'ABCEUGKLNPRTVY';
   let letrasNoUsadas = alfabeto.split('');
 
   if (letrasNoUsadas.length === 0) {
@@ -15,9 +16,7 @@ function obtenerLetraUnica() {
 
 let array = [];
 for (let index = 0; index < 26; index++) {
-  let prev;
   const word = obtenerLetraUnica();
   console.log('Letra ' + index + ':', word);
-  if (array.find((element) => element === word)) console.log('Se duplicó la letra', word);
   array.push(word);
 }

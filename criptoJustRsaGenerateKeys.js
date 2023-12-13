@@ -1,5 +1,4 @@
 const NodeRSA = require('node-rsa');
-const CryptoJS = require('crypto-js');
 
 const publicaKey = `-----BEGIN PUBLIC KEY-----
     MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAwiTqhZjVTs8RjbkNQThg
