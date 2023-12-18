@@ -6,7 +6,7 @@ const fs = require('fs');
 
 // Lee la clave privada desde el archivo PEM
 const privateKeyPem = fs.readFileSync('./keys/privateKey.pem', 'utf8');
-
+console.log({privateKeyPem});
 // Crea instancias de NodeRSA con las claves
 // const publicKey = new NodeRSA(publicKeyPem);
 const privateKey = new NodeRSA(privateKeyPem);
