@@ -1,6 +1,6 @@
-  const alfabeto = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
-  function obtenerLetraUnica() {
-  const alfabeto = 'ABCEUGKLNPRTVY';
+const alfabeto = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
+function obtenerLetraUnica() {
+  const alfabeto = 'ABCDEFGHIJKLMNPQRTUWYZ';
   let letrasNoUsadas = alfabeto.split('');
 
   if (letrasNoUsadas.length === 0) {
@@ -15,8 +15,6 @@
 }
 
 let array = [];
-for (let index = 0; index < 26; index++) {
-  const word = obtenerLetraUnica();
-  console.log('Letra ' + index + ':', word);
-  array.push(word);
-}
+const word = obtenerLetraUnica();
+console.log(word);
+array.push(word);
